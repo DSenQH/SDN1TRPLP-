@@ -1,0 +1,52 @@
+#include <iostream>
+
+
+int main(){
+
+    std::string pertanyaan[] = {"1. Dimana Hitler dikubur?: ", 
+                            "2. Kapan code ini dibuat?: ", 
+                            "3. Siapa pembuat pertanyaan ini?: ", 
+                            "4. Botol minumku ada berapa?: ", 
+                            "5. Apakah Bekasi itu Planet?: "};
+
+    std::string opsi [][4] = {{"A. Garut", "B. Germany", "C. Antartica", "D. Mars"},
+                        {"A. Maret", "B. April", "C. Mei", "D. Juni"},
+                        {"A. Alien", "B. Faidil", "C. Faiz", "D. Rajeet"},
+                        {"A. 2", "B. 5", "C. 1", "D. 4"},
+                        {"A. Tidak", "B. Mungkin", "C. Tentu", "D. Gak tau"}};
+
+    char jawaban [] = {'A', 'C', 'B', 'A', 'C'};
+
+    int size = sizeof(pertanyaan)/sizeof(pertanyaan[0]);
+    char jawab;
+    int skor = 0;
+
+    for(int i = 0; i < size; i++){
+        std::cout << "*******************************" << '\n';
+        std::cout << pertanyaan[i] << '\n';
+        std::cout << "*******************************" << '\n';
+
+        for(int j = 0; j < sizeof(opsi[i])/sizeof(opsi[i][0]); j++){
+            std::cout << opsi[i][j] << '\n';
+        }
+
+        std::cin >> jawab;
+        jawab = toupper(jawab);
+        
+        if(jawab == jawaban[i]){
+            std::cout << "Jawaban Benar!\n";
+            skor++;
+        }
+        else{
+            std::cout << "Jawaban Salah!\n";
+            std::cout << "Jawaban yang benar : " << jawaban[i] << '\n';
+        }
+    }
+
+    std::cout << "Total jawaban yang benar adalah : " << skor << '\n';
+    std::cout << "Jumlah pertanyaan: " << size << '\n';
+    std::cout << "Nilai anda: " << (skor/(double)size)*100 << "%";
+
+
+    return 0;
+}
