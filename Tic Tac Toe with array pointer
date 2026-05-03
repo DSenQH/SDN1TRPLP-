@@ -1,0 +1,130 @@
+#include <iostream>
+#include <ctime>
+
+void papan(char *array);
+void giliranPemain(char *array, char pemain);
+void giliranKomputer(char *array, char komputer);
+bool cekPemenang(char *array, char pemain, char komputer);
+bool cekSeimbang(char *array);
+
+int main() {
+   
+    char tempat [9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+    char player = 'X';
+    char com = 'O';
+    bool berjalan = true;
+
+    papan(tempat);
+
+    while(berjalan == true){
+        giliranPemain(tempat, player);
+        papan(tempat);
+        if(cekPemenang(tempat, player, com)){
+            berjalan = false;
+            break;
+        }
+        else if(cekSeimbang(tempat)){
+            berjalan = false;
+            break;
+        }
+
+        giliranKomputer(tempat, com);
+        papan(tempat);
+        if(cekPemenang(tempat, player, com)){
+            berjalan = false;
+            break;
+        }
+        else if(cekSeimbang(tempat)){
+            berjalan = false;
+            break;
+        }
+    }
+
+    return 0;
+}
+void papan(char *array){
+    std::cout << '\n';
+    std::cout << "     |     |     " << '\n';
+    std::cout << "  " << array[0] << "  |  " << array[1] << "  |  " << array[2] << "  " << '\n';
+    std::cout << "_____|_____|_____" << '\n';
+    std::cout << "     |     |     " << '\n';
+    std::cout << "  " << array[3] << "  |  " << array[4] << "  |  " << array[5] << "  " << '\n';
+    std::cout << "_____|_____|_____" << '\n';
+    std::cout << "     |     |     " << '\n';
+    std::cout << "  " << array[6] << "  |  " << array[7] << "  |  " << array[8] << "  " << '\n';
+    std::cout << "     |     |     " << '\n';
+    std::cout << '\n';
+
+}
+void giliranPemain(char *array, char pemain){
+    int nomor;
+    do{
+        std::cout << "Pilih tempat untuk ditandai (1-9): " << '\n';
+        std::cin >> nomor;
+        nomor--;
+
+        if(array[nomor] == ' '){
+            array[nomor] = pemain;
+            break;
+        }
+        
+    }while(!nomor > 0 || !nomor < 8);
+
+
+
+}
+void giliranKomputer(char *array, char komputer){
+    int nomor;
+    srand(time(0));
+
+    while(true){
+        nomor = rand() % 9;
+        if(array[nomor] == ' '){
+            array[nomor] = komputer;
+            break;
+        }
+    }
+
+}
+bool cekPemenang(char *array, char pemain, char komputer){
+
+    if(array [0] != ' ' && array[0] == array [1] && array[1] == array [2]){
+        array[0] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else if(array [3] != ' ' && array[3] == array [4] && array[4] == array [5]){
+        array[3] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else if(array [6] != ' ' && array[6] == array [7] && array[7] == array [8]){
+        array[6] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else if(array [0] != ' ' && array[0] == array [3] && array[3] == array [6]){
+        array[0] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else if(array [1] != ' ' && array[1] == array [4] && array[4] == array [7]){
+        array[1] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else if(array [2] != ' ' && array[2] == array [5] && array[5] == array [8]){
+        array[2] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else if(array [0] != ' ' && array[0] == array [4] && array[4] == array [8]){
+        array[0] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else if(array [6] != ' ' && array[6] == array [4] && array[4] == array [2]){
+        array[6] == pemain ? std::cout << "Kamu Menang! \n" : std::cout << "Kamu Kalah! \n";
+    }
+    else{
+        return false;
+    }
+
+    return true;
+}
+bool cekSeimbang(char *array){
+
+    for(int i = 0; i < 9; i++){
+        if(array[i] == ' '){
+            return false;
+        }
+    }
+    std::cout << "You Tied!\n";
+    return true;
+}
